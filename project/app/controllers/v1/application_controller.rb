@@ -17,7 +17,7 @@ class V1::ApplicationController < ActionController::Base
   end
 
   def set_headers
-    headers['Access-Control-Allow-Origin']      = 'http://localhost:8080'
+    headers['Access-Control-Allow-Origin']      = 'http://professorfinanceiro.herokuapp.com'
     headers['Access-Control-Allow-Methods']     = 'GET, POST, OPTIONS, PUT, PATCH, DELETE'
     headers['Access-Control-Allow-Headers']     = 'X-Requested-With,content-type'
     headers['Access-Control-Allow-Credentials'] = 'true'
