@@ -1,6 +1,6 @@
 class V1::ExpensesController < V1::ApplicationController
   def create
-    params[:user_id] = current_user['_id']
+    params[:user_id] = user_id
 
     expense = Expense.initialize_with_params(params.permit(:value, :date, :category, :subcategory, :user_id))
     expense.save!

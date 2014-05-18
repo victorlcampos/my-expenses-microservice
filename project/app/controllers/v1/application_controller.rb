@@ -12,15 +12,17 @@ class V1::ApplicationController < ActionController::Base
 
   private
 
-  def current_user
-    @current_user ||= JSON[cookies['user']]
+  def user_id
+    @user_id ||= JWT.decode(params[:token], ENV["SECRET_TOKEN"] || "MEAN")[0]["id"]
   end
 
   def set_headers
-    headers['Access-Control-Allow-Origin']      = 'http://professorfinanceiro.herokuapp.com'
-    headers['Access-Control-Allow-Methods']     = 'GET, POST, OPTIONS, PUT, PATCH, DELETE'
-    headers['Access-Control-Allow-Headers']     = 'X-Requested-With,content-type'
-    headers['Access-Control-Allow-Credentials'] = 'true'
+      headers['Access-Control-Allow-Origin']      = request.headers["HTTP_ORIGIN"]
+      headers['Access-Control-Expose-Headers']    = 'ETag'
+      headers['Access-Control-Allow-Methods']     = 'GET, POST, PATCH, PUT, DELETE, OPTIONS, HEAD'
+      headers['Access-Control-Allow-Headers']     = '*,x-requested-with,Content-Type,If-Modified-Since,If-None-Match,Auth-User-Token'
+      headers['Access-Control-Max-Age']           = '86400'
+      headers['Access-Control-Allow-Credentials'] = 'true'
   end
 
   def default_format_json
